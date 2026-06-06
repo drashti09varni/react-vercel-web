@@ -78,7 +78,7 @@ const ProductDetails = ({ cart }) => {
       setcartlnt(oldarr.length)
     }
     window.scroll(0, 0)
-  }, [pChange])
+  }, [])
 
 
 
