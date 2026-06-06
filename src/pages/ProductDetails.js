@@ -24,7 +24,7 @@ const ProductDetails = ({ cart }) => {
   const [alldata] = useState(Data)
   const [category, setcategory] = useState([])
   const [active] = useState("m");
-  const [ setcartlnt] = useState(0)
+  const [cartlnt, setcartlnt] = useState(0)
   const [offer, setoffer] = useState(true)
   const [showSidebar, setShowSidebar] = useState(false)
   const [cartData, setcartData] = useState([])
@@ -70,6 +70,17 @@ const ProductDetails = ({ cart }) => {
     };
   }, [showSidebar]);
 
+    const pChange = () => {
+    const alldata = [...Data]
+    if (cart) {
+      setdata(alldata[localStorage.second])
+    } else {
+      setdata(alldata[localStorage.id])
+    }
+    setcategory(alldata.slice(0, 20))
+    localStorage.setItem("size", active)
+  }
+
   useEffect(() => {
     pChange()
     if (localStorage.cart && localStorage.cart !== 0) {
@@ -112,11 +123,9 @@ const ProductDetails = ({ cart }) => {
     let tprice = 0
     if (cartData.length >= 3) {
       let dprice = 0
-      cartData.map((item, index) => {
-        if (index % 3 !== 0) {
-          dprice = dprice + item.price
-        }
-      })
+    cartData.forEach((item) => {
+  tprice += item.price;
+});
       setoffprice(dprice)
     } else {
       setoffprice(0)
@@ -145,16 +154,7 @@ const ProductDetails = ({ cart }) => {
     navigate("/checkout")
   }
 
-  const pChange = () => {
-    const alldata = [...Data]
-    if (cart) {
-      setdata(alldata[localStorage.second])
-    } else {
-      setdata(alldata[localStorage.id])
-    }
-    setcategory(alldata.slice(0, 20))
-    localStorage.setItem("size", active)
-  }
+
 
   const BuyNow = () => {
     // Addtocart()
@@ -175,9 +175,9 @@ const ProductDetails = ({ cart }) => {
       } else {
         setoffer(true)
       }
-      oldarr.map((item) => {
-        cartdata.push(alldata[item])
-      })
+     oldarr.forEach((item) => {
+  cartdata.push(alldata[item]);
+});
       setcartData(cartdata)
       calculatePrice()
     }
@@ -187,9 +187,9 @@ const ProductDetails = ({ cart }) => {
     let dprice = 0
     const oldcartjson = localStorage.cart
     const oldarr = JSON.parse(oldcartjson)
-    oldarr.map((item) => {
-      dprice = dprice + alldata[item].price
-    })
+   oldarr.forEach((item) => {
+  dprice += alldata[item].price;
+});
     setprice(dprice)
   }
 
