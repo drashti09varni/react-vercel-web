@@ -21,18 +21,17 @@ import R4 from "../assets/review_4.jpg"
 const ProductDetails = ({ cart }) => {
   const navigate = useNavigate()
   const [data, setdata] = useState({})
-  const [alldata, setalldata] = useState(Data)
+  const [alldata] = useState(Data)
   const [category, setcategory] = useState([])
-  const [active, setactive] = useState("m");
-  const [cartlnt, setcartlnt] = useState(0)
-  const [addcart, setaddcart] = useState(false)
+  const [active] = useState("m");
+  const [ setcartlnt] = useState(0)
   const [offer, setoffer] = useState(true)
   const [showSidebar, setShowSidebar] = useState(false)
   const [cartData, setcartData] = useState([])
   const [sizeData, setsizeData] = useState([])
   const [price, setprice] = useState(0)
   const [offprice, setoffprice] = useState(0)
-
+  const [seconds, setSeconds] = useState(15 * 60);
   
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -73,16 +72,15 @@ const ProductDetails = ({ cart }) => {
 
   useEffect(() => {
     pChange()
-    if (localStorage.cart && localStorage.cart != 0) {
+    if (localStorage.cart && localStorage.cart !== 0) {
       const oldcartjson = localStorage.cart
       const oldarr = JSON.parse(oldcartjson)
       setcartlnt(oldarr.length)
     }
     window.scroll(0, 0)
-    // loadCart()
-  }, [])
+  }, [pChange])
 
-  const [seconds, setSeconds] = useState(15 * 60);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,7 +98,7 @@ const ProductDetails = ({ cart }) => {
   const remainingSeconds = seconds % 60;
 
   useEffect(() => {
-    if (localStorage.cart && localStorage.cart != 0) {
+    if (localStorage.cart && localStorage.cart !== 0) {
       const oldcartjson = localStorage.cart
       const oldarr = JSON.parse(oldcartjson)
       setcartlnt(oldarr.length)
@@ -166,7 +164,7 @@ const ProductDetails = ({ cart }) => {
   const loadCart = () => {
     const cartdata = []
 
-    if (localStorage.cart && localStorage.cart != 0) {
+    if (localStorage.cart && localStorage.cart !== 0) {
       const sizesjson = localStorage.sizearr
       const sizes = JSON.parse(sizesjson)
       setsizeData(sizes)
@@ -443,7 +441,7 @@ const ProductDetails = ({ cart }) => {
     </div>
   </div>
 </div>
-<img src={image11} />
+<img src={image11} alt="dd"/>
 
 
 
